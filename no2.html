@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>love</title>
+
+    <link rel="stylesheet" href="./style.css" />
+    <style>
+      .yes-btn {
+        transition: transform 0.2s ease;
+      }
+
+      .yes-btn.clicked-1 {
+        transform: scale(1.5);
+      }
+
+      .yes-btn.clicked-2 {
+        transform: scale(2);
+      }
+
+      .yes-btn.clicked-3 {
+        transform: scale(2.7);
+      }
+    </style>
+
+
+  </head>
+  <body>
+    <div class="container">
+      <div>
+        <img src="img/mimibubu.gif" alt="Manja GIF" style="max-width: 100%; height: auto;" />
+      </div>
+
+      <h1>pliss!!😣</h1>
+      <div class="btn" id="buttons">
+        <a href="mau.html" class="yes-btn" id="yesBtn">Mau...</a>
+        <a href="#" onclick="handleNoClick()">Gamau</a>
+      </div>
+    </div>
+    <script>
+      let noClickCount = 0;
+
+      function handleNoClick() {
+        const yesBtn = document.getElementById('yesBtn');
+        noClickCount++;
+
+        yesBtn.classList.remove('clicked-1', 'clicked-2', 'clicked-3');
+
+        if (noClickCount < 4) {
+          yesBtn.classList.add('clicked-' + noClickCount);
+        } else {
+          window.location.href = 'no3.html';
+        }
+      }
+    </script>
+  </body>
+</html>

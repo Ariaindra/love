@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>love</title>
+  <style>
+    body {
+      margin: 0;
+      background-color: #fff0f5;
+      font-family: 'Comic Sans MS', cursive, sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      flex-direction: column;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    .gif {
+      max-width: 200px;
+      margin-bottom: 20px;
+    }
+
+    .type-text {
+      font-size: 22px;
+      color: #d63384;
+      min-height: 24px;
+      margin-bottom: 10px;
+    }
+
+    #finalText {
+      font-size: 24px;
+      font-weight: bold;
+      color: #ff1493;
+    }
+
+    #warningText {
+      font-size: 18px;
+      color: #dc3545;
+      margin-top: 10px;
+      display: none;
+    }
+
+    .btn {
+      display: none;
+      margin-top: 20px;
+    }
+
+    .btn a {
+      display: inline-block;
+      background-color: #ff69b4;
+      color: white;
+      padding: 10px 20px;
+      margin: 10px;
+      border-radius: 20px;
+      text-decoration: none;
+      transition: transform 0.2s;
+    }
+
+    .btn a:hover {
+      transform: scale(1.1);
+      background-color: #ff69b4;
+    }
+  </style>
+</head>
+
+<body>
+  <img src="img/manja.gif" alt="Manja GIF" class="gif" />
+
+  <div class="type-text" id="type1"></div>
+  <div class="type-text" id="type2"></div>
+  <div class="type-text" id="type3"></div>
+  <div class="type-text" id="type4"></div>
+  <div class="type-text" id="finalText"></div>
+  <div id="warningText">Jangan pencet tombol 'Gamau' yaa 😠</div>
+
+  <div class="btn" id="buttons">
+    <a href="mau.html">Mau...</a>
+    <a href="no1.html">Gamau</a>
+  </div>
+
+  <script>
+    const messages = [
+      "Hey... 😳",
+      "Aku punya sesuatu buat kamu nih...",
+      "Aku cuma mau bilang sesuatu yang selama ini mungkin gak pernah cukup berani aku ucapin langsung...",
+      "Aku suka kamu, dari cara kamu senyum, dari cara kamu tertawa, dan dari cara kamu bikin hariku lebih hidup.",
+      "Mau gak jadi pacar aku?? 💍"
+    ];
+
+    const typeWriter = (text, elementId, callback) => {
+      let i = 0;
+      const element = document.getElementById(elementId);
+      element.innerHTML = "";
+      const typing = setInterval(() => {
+        if (i < text.length) {
+          element.innerHTML += text.charAt(i);
+          i++;
+        } else {
+          clearInterval(typing);
+          if (callback) callback();
+        }
+      }, 50);
+    };
+
+    // Jalankan berurutan
+    typeWriter(messages[0], "type1", () => {
+      setTimeout(() => {
+        typeWriter(messages[1], "type2", () => {
+          setTimeout(() => {
+            typeWriter(messages[2], "type3", () => {
+              setTimeout(() => {
+                typeWriter(messages[3], "type4", () => {
+                  setTimeout(() => {
+                    typeWriter(messages[4], "finalText", () => {
+                      document.getElementById("finalText").style.display = "block";
+                      document.getElementById("warningText").style.display =
+                      "block";
+                      document.getElementById("buttons").style.display = "block";
+                    });
+                  }, 500);
+                });
+              }, 500);
+            });
+          }, 500);
+        });
+      }, 500);
+    });
+  </script>
+</body>
+
+</html>

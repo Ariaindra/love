@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Mau!</title>
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" rel="stylesheet">
+    <style>
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #fff0f5;
+        }
+    </style>
+</head>
+
+<body>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        const now = new Date();
+        const formattedDate = now.toLocaleDateString('id-ID');
+        const formattedTime = now.toLocaleTimeString('id-ID', {
+            hour: '2-digit',
+            minute: '2-digit',
+            second: '2-digit'
+        });
+
+        const images = [
+            'https://feeldreams.github.io/peach22.gif',
+            'https://feeldreams.github.io/peachgetar.gif',
+            'https://feeldreams.github.io/peachhoam.gif',
+            'https://feeldreams.github.io/peachktw2.gif',
+            'https://feeldreams.github.io/peachktw.gif'
+        ];
+
+        const texts = [
+            'Arghhh g nyangka!',
+            `Inget ya hari ini tanggal jadian kita ${formattedDate}, jam ${formattedTime}`,
+            'Dua tiga makan pete!!!',
+            'aku nak kamu bolee??',
+            'Kapan kita jalan?? kirim pesannya ke aku ya😘',
+        ];
+
+        function showAlerts(step) {
+            if (step < 4) {
+                if (step === 1) {
+                    Swal.fire({
+                        html: `
+                            <p>${texts[step]}</p>
+                            <div id="popupCountdown" style="margin-top:10px; font-weight:bold; color:#d63384;"></div>
+                        `,
+                        imageUrl: images[step],
+                        imageWidth: 150,
+                        imageHeight: 150,
+                        imageAlt: 'Custom image',
+                        confirmButtonText: 'Okey'
+                    }).then(() => {
+                        showAlerts(step + 1);
+                    });
+
+                    // Target tanggal jadian
+                    const nextYear = new Date();
+                    nextYear.setFullYear(nextYear.getFullYear() + 1);
+                    nextYear.setHours(0, 0, 0, 0);
+                    const targetDate = nextYear.getTime();
+ // Ganti sesuai kebutuhan
+                    const countdownEl = document.getElementById('popupCountdown');
+
+                    function updateCountdown() {
+                        const now = new Date().getTime();
+                        const distance = targetDate - now;
+
+                        if (distance <= 0) {
+                            countdownEl.innerText = 'Hari ini hari kita! ❤️';
+                            clearInterval(interval);
+                            return;
+                        }
+
+                        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                        countdownEl.innerText =
+                            `Menuju Anniversary: ${days} hari ${hours} jam ${minutes} menit ${seconds} detik`;
+                    }
+
+                    const interval = setInterval(updateCountdown, 1000);
+                    updateCountdown();
+
+                } else {
+                    Swal.fire({
+                        text: texts[step],
+                        imageUrl: images[step],
+                        imageWidth: 150,
+                        imageHeight: 150,
+                        imageAlt: 'Custom image',
+                        confirmButtonText: 'Okey'
+                    }).then(() => {
+                        showAlerts(step + 1);
+                    });
+                }
+            } else {
+                Swal.fire({
+                    title: 'Jalan yuk?',
+                    text: texts[step],
+                    input: 'text',
+                    inputValue: 'I Love U',
+                    inputPlaceholder: 'Kirim pesan ya kalo mau...',
+                    imageUrl: images[step],
+                    imageWidth: 150,
+                    imageHeight: 150,
+                    imageAlt: 'Custom image',
+                    showCancelButton: true,
+                    confirmButtonText: 'Send',
+                    cancelButtonText: 'Cancel'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        const message = encodeURIComponent(result.value);
+                        const whatsappUrl = `https://wa.me/6285173347831?text=${message}`;
+                        window.open(whatsappUrl, '_blank');
+                    }
+                });
+            }
+        }
+
+        // Mulai popup berantai saat halaman dibuka
+        showAlerts(0);
+    </script>
+</body>
+
+</html>
